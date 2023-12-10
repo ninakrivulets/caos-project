@@ -1,0 +1,3 @@
+/Users/syuy/Desktop/CaosBot/cmake-build-debug/CMakeFiles/echobot.dir
+/Users/syuy/Desktop/CaosBot/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/syuy/Desktop/CaosBot/cmake-build-debug/CMakeFiles/rebuild_cache.dir

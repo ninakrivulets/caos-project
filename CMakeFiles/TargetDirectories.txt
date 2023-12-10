@@ -1,7 +1,0 @@
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/TgBot.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/edit_cache.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/rebuild_cache.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/list_install_components.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/install.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/install/local.dir
-/Users/syuy/Desktop/CaosBot/tgbot-cpp/CMakeFiles/install/strip.dir

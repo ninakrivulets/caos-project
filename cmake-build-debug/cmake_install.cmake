@@ -1,4 +1,4 @@
-# Install script for directory: /Users/syuy/Desktop/CaosBot
+# Install script for directory: /Users/syuy/Downloads/caos-project-main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/syuy/Desktop/CaosBot/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/syuy/Downloads/caos-project-main/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -37,7 +37,7 @@ int main() {
 
     bot.getEvents().onCallbackQuery([&bot](const TgBot::CallbackQuery::Ptr& query) {
         if (query->data == "узнать рецепт") {
-            std::string response = "Введите до 10 ингредиентов в формате: яблоко, капуста, ...";
+            std::string response = "Введите до 10 ингредиентов";
             bot.getApi().sendMessage(query->message->chat->id, response);
             currentState = AWAIT_INGREDIENTS;
         }
@@ -45,7 +45,7 @@ int main() {
 
 
     bot.getEvents().onCommand("find_recipe", [&bot](const TgBot::Message::Ptr& message) {
-        std::string response = "Введите до 10 ингредиентов в формате: яблоко, капуста, ...";
+        std::string response = "Введите до 10 ингредиентов";
         bot.getApi().sendMessage(message->chat->id, response);
         currentState = AWAIT_INGREDIENTS;
     });
@@ -58,16 +58,25 @@ int main() {
             std::ofstream file(filepath);
             file << message->text << std::endl;
             file.close();
-            std::this_thread::sleep_for(std::chrono::seconds(3));
             bot.getApi().sendMessage(message->chat->id, "Готово! Вот рецепты :)");
+            std::this_thread::sleep_for(std::chrono::seconds(4));
 
-            std::ifstream fil("response.txt");
-            std::stringstream buffer;
-            buffer << file.rdbuf();
-            std::string content = buffer.str();
-            file.close();
+            std::string filepath_response = "/Users/syuy/Downloads/caos-project-main/response.txt";
+            std::string content;
 
+            std::ifstream file_response(filepath_response);
+            if (file_response.is_open()) {
+                std::stringstream buffer;
+                buffer << file_response.rdbuf();
+                content = buffer.str();
+                file_response.close();
+            } else {
+                std::cerr << "Не удалось открыть файл: " << filepath_response << std::endl;
+            }
+
+            std::cout << "here1";
             bot.getApi().sendMessage(message->chat->id, content);
+            std::cout << "here2";
 
             currentState = IDLE;
             return;

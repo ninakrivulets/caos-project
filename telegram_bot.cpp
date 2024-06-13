@@ -9,7 +9,7 @@
 using namespace TgBot;
 using namespace std;
 
-vector<string> bot_commands = {"start", "find_recipe"};
+vector<string> bot_commands = {"start", "find_recipe", "get_to_know_a_joke"};
 
 enum BotState {
     IDLE, // Состояние, когда бот ожидает команды
@@ -18,9 +18,18 @@ enum BotState {
 
 BotState currentState = IDLE; // Начальное состояние - IDLE
 
-
 int main() {
     TgBot::Bot bot("6645521404:AAFvUe2P3QtXSIltaBmm0p5hLj-BjFepuXg");
+    // Определение команд
+    std::vector<BotCommand::Ptr> commands;
+    for (const auto& cmd : bot_commands) {
+        BotCommand::Ptr command(new BotCommand);
+        command->command = cmd;
+        command->description = "Описание команды " + cmd; // Замените описание на подходящее
+        commands.push_back(command);
+    }
+    bot.getApi().setMyCommands(commands);
+
 
     InlineKeyboardMarkup::Ptr keyboard1(new InlineKeyboardMarkup);
     vector<InlineKeyboardButton::Ptr> buttons1;
@@ -50,6 +59,34 @@ int main() {
         currentState = AWAIT_INGREDIENTS;
     });
 
+    std::vector<std::string> jokes = { // Анекдоты
+            "— Доктор, у меня плохое настроение!\n— Позвольте мне выписать вам счёт.",
+            "— Почему курица перешла дорогу?\n— Чтобы показать всем, что у неё есть яйца.",
+            "— Зачем пьют валерьянку?\n— Чтобы отпраздновать свадьбу котов.",
+            "— Почему математик боится отрицательных чисел?\n— Потому что они всегда такие отрицательные.",
+            "— Какая рыба нападает на людей?\n— Хулиган.",
+            "— Что делает фокусник в отпуске?\n— Исчезает.",
+            "— Почему нельзя брать два раза одну и ту же шутку?\n— Потому что юмор должен быть свежим!",
+            "— Чем заканчивается день?\n— Буквой \"ь\".",
+            "— Что будет, если скрестить ежа и змею?\n— 1 метр колючей проволоки.",
+            "— Почему компьютеры не едят пиццу?\n— Потому что они не могут есть, у них нет рта!",
+            "— Какая самая сложная часть работы электрика?\n— Найти подходящую лампочку.",
+            "— Какой элемент таблицы Менделеева не любит сидеть на месте?\n— Уран.",
+            "— Почему у программистов нет выходных?\n— Потому что они всегда кодят.",
+            "— Какая мышь может летать?\n— Компьютерная, если её сильно бросить.",
+            "— Почему холодильник не улыбается?\n— Потому что у него всегда полная холодильная камера.",
+            "— Что будет, если бросить сковородку в воду?\n— Жаркая схватка!",
+            "— Почему рыбы не могут работать программистами?\n— Потому что у них нет рук, чтобы нажимать на клавиши.",
+            "— Какой компьютер не может считать?\n— Тот, который выключен.",
+            "— Почему огурец не ходит в школу?\n— Потому что он зелёный.",
+            "— Почему стол не может петь?\n— Потому что у него нет голосовых связок."
+    };
+
+    bot.getEvents().onCommand("get_to_know_a_joke", [&bot, &jokes, &keyboard1](const TgBot::Message::Ptr& message) {
+        std::string response = jokes[std::rand() % jokes.size()];
+        bot.getApi().sendMessage(message->chat->id, response, false, 0);
+    });
+//todo
 
     bot.getEvents().onAnyMessage([&bot](const TgBot::Message::Ptr& message) {
         if (currentState == AWAIT_INGREDIENTS) {
